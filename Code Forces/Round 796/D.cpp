@@ -27,7 +27,7 @@ void solve()
     }
     else
     {
-        cout << cum[n] + (k * (k - 1) / 2) - ((k - n) * (k - n) / 2) << endl;
+        cout << cum[n] + (k * (k - 1) / 2) - ((k - n) * (k - n - 1) / 2) << endl;
     }
 }
 
