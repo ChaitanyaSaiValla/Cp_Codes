@@ -19,38 +19,33 @@ void solve(int test)
         adj[b].push_back(a);
     }
     int ans = 0;
-    vector<int> vis(n + 1, 0);
     for (int i = 1; i <= n; i++)
     {
-        int innocents = 0;
+        int innocents = 1;
         queue<int> q;
+        map<int, int> vis;
         q.push(i);
-        set<int> temp;
-        temp.insert(i);
-        while (!q.empty() && innocents <= k)
+        vis[i] = 1;
+        while (!q.empty())
         {
             int c = q.front();
             q.pop();
-            if (vis[c])
-                continue;
-            vis[c] = 1;
-            innocents++;
-            temp.insert(c);
             for (auto j : adj[c])
             {
-                if (vis[j])
+                if (!vis[j])
                 {
-                    continue;
+                    q.push(j);
+                    vis[j] = 1;
+                    innocents++;
+                    if (innocents > k)
+                        break;
                 }
-                q.push(j);
             }
+            if (innocents > k)
+                break;
         }
         if (innocents > k)
             ans++;
-        for (auto &x : temp)
-        {
-            vis[x] = 0;
-        }
     }
     cout << ans << endl;
 }
